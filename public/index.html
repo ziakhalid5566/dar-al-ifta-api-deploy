@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دار الافتاء AI — روزانہ فتاوی</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C96A;
+      --dark: #080F0D;
+      --card: #0F1E1A;
+      --border: #1E3830;
+      --text: #F0EDE8;
+      --muted: #7A9E93;
+      --green: #1A6B3C;
+    }
+
+    body {
+      font-family: 'Noto Nastaliq Urdu', 'Poppins', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── Header ─── */
+    header {
+      background: linear-gradient(135deg, #0F1E1A 0%, #0A1510 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--gold), #8B6914);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 0 16px rgba(201,168,76,0.3);
+    }
+    .logo-text { font-size: 18px; font-weight: 700; color: var(--text); font-family: 'Poppins', sans-serif; }
+    .logo-sub { font-size: 11px; color: var(--muted); font-family: 'Poppins', sans-serif; }
+    .live-badge {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 20px;
+      background: rgba(26,107,60,0.15);
+      border: 1px solid rgba(26,107,60,0.4);
+      font-size: 12px; color: #4ADE80;
+      font-family: 'Poppins', sans-serif;
+    }
+    .live-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #4ADE80;
+      box-shadow: 0 0 6px #4ADE80;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ─── Hero ─── */
+    .hero {
+      text-align: center;
+      padding: 64px 24px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
+      position: absolute;
+      top: 20px; left: 50%; transform: translateX(-50%);
+      font-size: clamp(28px, 5vw, 56px);
+      color: var(--gold);
+      opacity: 0.05;
+      white-space: nowrap;
+      font-family: 'Noto Nastaliq Urdu', serif;
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-family: 'Noto Nastaliq Urdu', serif;
+    }
+    .hero p { font-size: 16px; color: var(--muted); max-width: 520px; margin: 0 auto 32px; font-family: 'Poppins', sans-serif; }
+
+    /* ─── Stats bar ─── */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .stat {
+      text-align: center;
+      padding: 16px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      min-width: 120px;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; color: var(--gold); font-family: 'Poppins', sans-serif; }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; font-family: 'Poppins', sans-serif; }
+
+    /* ─── Agents grid ─── */
+    .section { max-width: 1100px; margin: 0 auto; padding: 0 24px 48px; }
+    .section-title {
+      font-size: 22px; font-weight: 700; color: var(--text);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-title::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .agent-card {
+      padding: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .agent-card:hover, .agent-card.active {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      transform: translateY(-2px);
+    }
+    .agent-emoji { font-size: 28px; margin-bottom: 8px; }
+    .agent-name { font-size: 14px; font-weight: 600; color: var(--text); font-family: 'Noto Nastaliq Urdu', serif; }
+    .agent-count { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: 'Poppins', sans-serif; }
+
+    /* ─── Category filter ─── */
+    .filters {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+    }
+    .filter-btn {
+      padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border);
+      background: transparent; color: var(--muted); cursor: pointer;
+      font-size: 13px; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+    }
+    .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .filter-btn.active { background: var(--gold); border-color: var(--gold); color: #080F0D; font-weight: 600; }
+
+    /* ─── Search ─── */
+    .search-wrap { margin-bottom: 24px; position: relative; }
+    .search-input {
+      width: 100%;
+      padding: 12px 48px 12px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      direction: rtl;
+      font-family: 'Noto Nastaliq Urdu', sans-serif;
+    }
+    .search-input:focus { border-color: var(--gold); }
+    .search-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); font-size: 16px; pointer-events: none;
+    }
+
+    /* ─── Fatwa cards ─── */
+    .fatwas-grid { display: flex; flex-direction: column; gap: 16px; }
+    .fatwa-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .fatwa-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      box-shadow: 0 4px 24px rgba(201,168,76,0.08);
+      transform: translateY(-1px);
+    }
+    .fatwa-card-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
+    }
+    .cat-badge {
+      padding: 4px 10px; border-radius: 6px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold); font-size: 11px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .time-label { font-size: 11px; color: var(--muted); font-family: 'Poppins', sans-serif; }
+    .fatwa-question {
+      font-size: 17px; font-weight: 600; color: var(--text);
+      line-height: 1.7; margin-bottom: 10px;
+      font-family: 'Noto Nastaliq Urdu', serif;
+    }
+    .fatwa-answer-preview {
+      font-size: 14px; color: var(--muted); line-height: 1.8;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+      font-family: 'Noto Nastaliq Urdu', serif;
+    }
+    .fatwa-expand { margin-top: 12px; font-size: 13px; color: var(--gold); font-family: 'Poppins', sans-serif; cursor: pointer; }
+    .fatwa-answer-full { display: none; font-size: 14px; color: var(--text); line-height: 1.9; margin-top: 12px;
+      font-family: 'Noto Nastaliq Urdu', serif; }
+    .fatwa-source {
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 11px; color: var(--muted);
+      font-family: 'Poppins', sans-serif;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* ─── Empty / Loading ─── */
+    .loading, .empty {
+      text-align: center; padding: 64px 24px;
+      color: var(--muted); font-size: 15px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Pagination ─── */
+    .pagination {
+      display: flex; justify-content: center; gap: 8px; margin-top: 32px; flex-wrap: wrap;
+    }
+    .page-btn {
+      padding: 8px 16px; border-radius: 10px;
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); cursor: pointer; font-size: 13px;
+      font-family: 'Poppins', sans-serif; transition: all 0.2s;
+    }
+    .page-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .page-btn.active { background: var(--gold); border-color: var(--gold); color: #080F0D; font-weight: 600; }
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center; padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 13px;
+      font-family: 'Poppins', sans-serif;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .stats-bar { gap: 12px; }
+      .stat { padding: 12px 16px; min-width: 100px; }
+      .hero { padding: 40px 16px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="/">
+      <div class="logo-icon">✦</div>
+      <div>
+        <div class="logo-text">Dar Al-Ifta AI</div>
+        <div class="logo-sub">Authentic Shariah Guidance</div>
+      </div>
+    </a>
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      Live Fatwas
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>روزانہ اسلامی فتاوی</h1>
+  <p>6 AI agents daily generate authentic Islamic Q&A — covering Ibaadat, Muamalat, Family, Contemporary and more.</p>
+  <div class="stats-bar" id="statsBar">
+    <div class="stat"><div class="stat-value" id="totalCount">…</div><div class="stat-label">کل فتاوی</div></div>
+    <div class="stat"><div class="stat-value">6</div><div class="stat-label">AI Agents</div></div>
+    <div class="stat"><div class="stat-value">Daily</div><div class="stat-label">Auto Update</div></div>
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="section">
+
+  <!-- Agents -->
+  <div class="section-title">AI Agents</div>
+  <div class="agents-grid" id="agentsGrid">
+    <!-- Filled by JS -->
+  </div>
+
+  <!-- Search + filters -->
+  <div class="section-title">فتاوی تلاش کریں</div>
+  <div class="search-wrap">
+    <input class="search-input" id="searchInput" type="text" placeholder="سوال یا موضوع تلاش کریں..." />
+    <span class="search-icon">🔍</span>
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-cat="All" onclick="setCategory('All',this)">تمام</button>
+    <button class="filter-btn" data-cat="عبادات" onclick="setCategory('عبادات',this)">عبادات</button>
+    <button class="filter-btn" data-cat="معاملات" onclick="setCategory('معاملات',this)">معاملات</button>
+    <button class="filter-btn" data-cat="خاندان" onclick="setCategory('خاندان',this)">خاندان</button>
+    <button class="filter-btn" data-cat="Contemporary" onclick="setCategory('Contemporary',this)">عصری</button>
+    <button class="filter-btn" data-cat="عقیدہ" onclick="setCategory('عقیدہ',this)">عقیدہ</button>
+    <button class="filter-btn" data-cat="اخلاق" onclick="setCategory('اخلاق',this)">اخلاق</button>
+  </div>
+
+  <!-- Fatwa list -->
+  <div id="fatwaList" class="fatwas-grid">
+    <div class="loading"><div class="spinner"></div>فتاوی لوڈ ہو رہے ہیں...</div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<footer>
+  <p>Dar Al-Ifta AI &nbsp;•&nbsp; Powered by Groq + Llama 3.3 &nbsp;•&nbsp; <a href="/api/healthz">API Status</a></p>
+  <p style="margin-top:8px;font-size:11px;opacity:0.5">AI تحقیق پر مبنی — ذاتی مسائل میں مستند مفتی سے رجوع کریں</p>
+</footer>
+
+<script>
+  const API = '/api';
+  let currentPage = 1;
+  let currentCategory = 'All';
+  let searchTimeout = null;
+  let searchQuery = '';
+
+  const AGENT_EMOJIS = { ibaadat:'🕌', muamalat:'💼', khandan:'👨‍👩‍👧', contemporary:'💻', aqeedah:'☪️', akhlaq:'❤️' };
+
+  // Load stats + agents on mount
+  async function loadStats() {
+    try {
+      const r = await fetch(`${API}/fatwas/stats`);
+      const d = await r.json();
+      document.getElementById('totalCount').textContent = d.totalFatwas ?? 0;
+
+      const grid = document.getElementById('agentsGrid');
+      if (d.agents) {
+        grid.innerHTML = d.agents.map(a => `
+          <div class="agent-card" onclick="setCategory('${a.category}', null)">
+            <div class="agent-emoji">${AGENT_EMOJIS[a.id] ?? '🤖'}</div>
+            <div class="agent-name">${a.nameUr}</div>
+            <div class="agent-count">${(d.byCategory.find(c=>c.category===a.category)?.count??0)} فتاوی</div>
+          </div>`).join('');
+      }
+    } catch {}
+  }
+
+  // Load fatwas
+  async function loadFatwas() {
+    const list = document.getElementById('fatwaList');
+    list.innerHTML = '<div class="loading"><div class="spinner"></div>فتاوی لوڈ ہو رہے ہیں...</div>';
+
+    try {
+      let url = `${API}/fatwas?page=${currentPage}&limit=10`;
+      if (currentCategory !== 'All') url += `&category=${encodeURIComponent(currentCategory)}`;
+      if (searchQuery) url += `&search=${encodeURIComponent(searchQuery)}`;
+
+      const r = await fetch(url);
+      const d = await r.json();
+
+      if (!d.data || d.data.length === 0) {
+        list.innerHTML = '<div class="empty">📭 اس موضوع پر ابھی کوئی فتویٰ نہیں ملا۔<br><br>کل AI agents مزید فتاوی شامل کریں گے۔</div>';
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+
+      list.innerHTML = d.data.map((f, i) => `
+        <div class="fatwa-card">
+          <div class="fatwa-card-top">
+            <span class="cat-badge">${f.category}</span>
+            <span class="time-label">${timeAgo(f.created_at || f.createdAt)}</span>
+          </div>
+          <div class="fatwa-question">${escHtml(f.question)}</div>
+          ${f.answer ? `
+            <div class="fatwa-answer-preview" id="prev${i}">${escHtml(f.answer)}</div>
+            <div class="fatwa-expand" onclick="toggleAnswer(${i})">▼ مزید پڑھیں</div>
+            <div class="fatwa-answer-full" id="full${i}">${escHtml(f.answer)}</div>
+          ` : ''}
+          ${f.source ? `<div class="fatwa-source">📚 ${escHtml(f.source)}</div>` : ''}
+        </div>`).join('');
+
+      renderPagination(d.meta);
+    } catch (e) {
+      list.innerHTML = '<div class="empty">⚠️ فتاوی لوڈ نہیں ہو سکے۔ دوبارہ کوشش کریں۔</div>';
+    }
+  }
+
+  function toggleAnswer(i) {
+    const prev = document.getElementById('prev'+i);
+    const full = document.getElementById('full'+i);
+    const btn = prev.nextElementSibling;
+    if (full.style.display === 'block') {
+      full.style.display = 'none'; prev.style.display = '-webkit-box';
+      btn.textContent = '▼ مزید پڑھیں';
+    } else {
+      full.style.display = 'block'; prev.style.display = 'none';
+      btn.textContent = '▲ کم کریں';
+    }
+  }
+
+  function renderPagination(meta) {
+    const pg = document.getElementById('pagination');
+    if (!meta || meta.pages <= 1) { pg.innerHTML = ''; return; }
+    let html = `<button class="page-btn" onclick="goPage(${meta.page-1})" ${meta.page<=1?'disabled':''}>◀ پچھلا</button>`;
+    for (let p = Math.max(1, meta.page-2); p <= Math.min(meta.pages, meta.page+2); p++) {
+      html += `<button class="page-btn ${p===meta.page?'active':''}" onclick="goPage(${p})">${p}</button>`;
+    }
+    html += `<button class="page-btn" onclick="goPage(${meta.page+1})" ${meta.page>=meta.pages?'disabled':''}>اگلا ▶</button>`;
+    pg.innerHTML = html;
+  }
+
+  function goPage(p) { currentPage = p; loadFatwas(); window.scrollTo({top:300,behavior:'smooth'}); }
+
+  function setCategory(cat, btn) {
+    currentCategory = cat; currentPage = 1;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    else {
+      const found = document.querySelector(`[data-cat="${cat}"]`);
+      if (found) { found.classList.add('active'); } else {
+        document.querySelectorAll('.filter-btn')[0]?.classList.add('active');
+      }
+    }
+    loadFatwas();
+  }
+
+  document.getElementById('searchInput').addEventListener('input', e => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      searchQuery = e.target.value.trim();
+      currentPage = 1;
+      loadFatwas();
+    }, 500);
+  });
+
+  function timeAgo(dateStr) {
+    if (!dateStr) return '';
+    const diff = (Date.now() - new Date(dateStr)) / 1000;
+    if (diff < 60) return 'ابھی';
+    if (diff < 3600) return `${Math.floor(diff/60)} منٹ پہلے`;
+    if (diff < 86400) return `${Math.floor(diff/3600)} گھنٹے پہلے`;
+    return `${Math.floor(diff/86400)} دن پہلے`;
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  loadStats();
+  loadFatwas();
+
+  // Auto-refresh every 5 minutes
+  setInterval(() => { loadStats(); loadFatwas(); }, 5 * 60 * 1000);
+</script>
+</body>
+</html>
